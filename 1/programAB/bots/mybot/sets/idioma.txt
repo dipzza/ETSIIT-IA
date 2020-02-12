@@ -1,0 +1,10 @@
+espanol
+ingles
+frances
+aleman
+chino
+hindi
+arabe
+portugues
+ruso
+japones

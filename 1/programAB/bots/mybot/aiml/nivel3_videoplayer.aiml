@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+	
+<!--	1 - Estado de reproducción
+	2 - Serie@Temporada
+	3 - Capitulo@Minuto
+	4 - Estado subtítulos-->
+	
+	<category>
+		<pattern>Soy <set>usuarios</set></pattern>
+		<template>
+			<think><set name="usuario"><star/></set></think>
+			Bienvenido <get name="usuario"/> a la aplicacion de visionado.
+			<think><set name="topic">visionado</set></think>
+		</template>
+	</category>
+	
+	
+	<topic name="visionado">
+	<category>
+		<pattern>Reproduce (la serie) <set>seriesnetflix</set></pattern>
+		<template>
+			<think><set var="serie"><star/></set></think>
+			
+			<modifymap>
+				<name><get name="usuario"/></name>
+				<key>reproduciendo</key>
+				<value><get var="serie"/></value>
+			</modifymap>
+			
+			<addtomap>
+				<name><get name="usuario"/></name>
+				<key><get var="serie"/></key>
+				<value>
+					<srai> TOP <map><name><get var="serie"/></name>7</map> </srai>_1 0 
+				</value>
+			</addtomap>
+			
+			<addtomap>
+				<name><get name="usuario"/></name>
+				<key>idioma<get var="serie"/></key>
+				<value>
+					<srai> TOP <srai> DECODE_FIELDS <map><name><get var="serie"/></name>4</map></srai></srai> no
+				</value>
+			</addtomap>
+			
+			
+			Reproduciendo la serie <star/>, capitulo <srai>TOP <map><name><get name="usuario"/></name><get var="serie"/></map></srai> minuto <srai>SELECTITEM 2 IN <map><name><get name="usuario"/></name><get var="serie"/></map></srai>
+		</template>
+	</category>
+	
+	<category>
+		<pattern>Reproduce (el capitulo actual) a partir del minuto <set>number</set></pattern>
+		<template>
+			<think><set var="serie"><map><name><get name="usuario"/></name>reproduciendo</map></set></think>
+			<condition var="serie">
+				<li value="no">No se esta reproduciendo ningun capitulo</li>
+				<li>
+					<think>
+						<set var="capitulo">
+							<srai>DECODE <srai>TOP <map><name><get name="usuario"/></name><get var="serie"/></map></srai></srai>
+						</set>
+						
+						<set var="minmax">
+							<srai>SELECTITEM <srai>SELECTITEM 2 IN <get var="capitulo"/></srai> IN <srai>DECODE_FIELDS <map><name><get var="serie"/></name>9<srai>TOP <get var="capitulo"/></srai></map></srai></srai>
+						</set>
+						
+						<set var="min">0</set>
+					</think>
+					
+					<condition var="min">
+						<li><value><get var="minmax"/></value>
+							Este capitulo solo dura <get var="minmax"/> por lo que no se puede reproducir desde el minuto <star/>, se adelantara hasta el final
+						</li>
+						<li><value><star/></value></li>
+						<li>
+							<think><set var="min"><map name="successor"><get var="min"/></map></set></think>
+							<loop/>
+						</li>
+					</condition>
+					<modifymap>
+						<name><get name="usuario"/></name>
+						<key><get var="serie"/></key>
+						<value><srai>ADDITEM <srai>TOP <map><name><get name="usuario"/></name><get var="serie"/></map></srai> IN <get var="min"/></srai></value>
+					</modifymap>
+							
+					Reproduciendo la serie <get var="serie"/>, capitulo <srai>TOP <map><name><get name="usuario"/></name><get var="serie"/></map></srai> minuto <srai>SELECTITEM 2 IN <map><name><get name="usuario"/></name><get var="serie"/></map></srai>
+				</li>
+			</condition>
+		</template>
+	</category>
+	
+	<category>
+		<pattern> Adelanta (la reproduccion) * minutos </pattern>
+		<template>
+			<think>
+				<set var="serie"><map><name><get name="usuario"/></name>reproduciendo</map></set>
+				<set var="min"><srai>SELECTITEM 2 IN <map><name><get name="usuario"/></name><get var="serie"/></map></srai></set>
+				<set var="adelantar"><star/></set>
+			</think>
+			
+			<condition var="adelantar">
+				<li value="0">
+					<srai>Reproduce a partir del minuto <get var="min"/></srai>
+				</li>
+				<li>
+					<think>
+						<set var="min"><map name="successor"><get var="min"/></map></set>
+						<set var="adelantar"><map name="predecessor"><get var="adelantar"/></map></set>
+					</think>
+					<loop/>
+				</li>
+			</condition>
+		</template>
+	</category>
+	
+	<category>
+		<pattern> Retrasa (la reproduccion) * minutos </pattern>
+		<template>
+			<think>
+				<set var="serie"><map><name><get name="usuario"/></name>reproduciendo</map></set>
+				<set var="min"><srai>SELECTITEM 2 IN <map><name><get name="usuario"/></name><get var="serie"/></map></srai></set>
+				<set var="adelantar"><star/></set>
+			</think>
+			
+			<condition var="adelantar">
+				<li value="0">
+					<srai>Reproduce a partir del minuto <get var="min"/></srai>
+				</li>
+				<li>
+					<think>
+						<set var="min"><map name="predecessor"><get var="min"/></map></set>
+						<set var="adelantar"><map name="predecessor"><get var="adelantar"/></map></set>
+					</think>
+					<loop/>
+				</li>
+			</condition>
+		</template>
+	</category>
+	
+	<category>
+		<pattern> Deten (la) reproduccion </pattern>
+		<template>
+			<modifymap>
+				<name><get name="usuario"/></name>
+				<key>reproduciendo</key>
+				<value>no</value>
+			</modifymap>
+			
+			Reproduccion detenida
+		</template>
+	</category>
+	
+	<category>
+		<pattern> Cierra la aplicacion de visionado </pattern>
+		<template>
+			<think><set name="topic">unknown</set></think>
+			Aplicacion cerrada, hasta luego <get name="usuario"/>
+		</template>
+	</category>
+	
+	<category>
+		<pattern> Cambia audio a *</pattern>
+		<template>
+			<think><set var="serie"><map><name><get name="usuario"/></name>reproduciendo</map></set></think>
+			<condition var="serie">
+				<li value="no">No se esta reproduciendo ningun capitulo</li>
+				<li>
+					<think><set var="existe">FINDITEM <star/> IN <srai>DECODE_FIELDS <map><name><get var="serie"/></name>4</map></srai></set></think>
+					<condition var="existe">
+						<li value="0">Este idioma no esta disponible</li>
+						<li>
+							<modifymap>
+								<name><get name="usuario"/></name>
+								<key>idioma<get var="serie"/></key>
+								<value><srai>ADDSITEM <star/> IN <srai>SELECTITEM 2 IN <map><name><get name="usuario"/></name>idioma<get var="serie"/></map></srai></srai></value>
+							</modifymap>
+							Audio cambiado a <star/>
+						</li>
+					</condition>
+				</li>
+			</condition>
+		</template>
+	</category>
+	
+	<category>
+		<pattern> Activa subtitulos en *</pattern>
+		<template>
+			<think><set var="serie"><map><name><get name="usuario"/></name>reproduciendo</map></set></think>
+			<condition var="serie">
+				<li value="no">No se esta reproduciendo ningun capitulo</li>
+				<li>
+					<think><set var="existe">FINDITEM <star/> IN <srai>DECODE_FIELDS <map><name><get var="serie"/></name>5</map></srai></set></think>
+					<condition var="existe">
+						<li value="0">Este idioma no esta disponible</li>
+						<li>
+							<modifymap>
+								<name><get name="usuario"/></name>
+								<key>idioma<get var="serie"/></key>
+								<value><srai>ADDSITEM <srai>TOP <map><name><get name="usuario"/></name>idioma<get var="serie"/></map></srai> IN <star/></srai></value>
+							</modifymap>
+							Subtitulos activados en <star/>
+						</li>
+					</condition>
+				</li>
+			</condition>
+		</template>
+	</category>
+	
+	<category>
+		<pattern> Desactiva subtitulos</pattern>
+		<template>
+			<think><set var="serie"><map><name><get name="usuario"/></name>reproduciendo</map></set></think>
+			<condition var="serie">
+				<li value="no">No se esta reproduciendo ningun capitulo</li>
+				<li>
+					<think><set var="no">no</set></think>
+					<modifymap>
+						<name><get name="usuario"/></name>
+						<key>idioma<get var="serie"/></key>
+						<value><srai>ADDITEM <srai>TOP <map><name><get name="usuario"/></name>idioma<get var="serie"/></map></srai> IN <get var="no"/></srai></value>
+					</modifymap>
+					Subtitulos desactivados
+				</li>
+			</condition>
+		</template>
+	</category>
+	
+	</topic>
+</aiml>

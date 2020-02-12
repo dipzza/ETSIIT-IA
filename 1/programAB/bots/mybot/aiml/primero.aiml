@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+	
+<!-- Primera regla -->
+<category>
+<pattern>Hola * </pattern>
+<template>Hola, que tal?</template>
+</category>
+
+<!-- Segunda regla -->
+<category>
+<pattern>^ que tal tu</pattern>
+<template>Genial ^^</template>
+</category>
+
+<!-- Tercera regla -->
+<category>
+<pattern>como te llamas</pattern>
+<template>Mi nombre es xXDupxoTron3000Xx</template>
+</category>
+
+<category>
+<pattern>^ me llamo *</pattern>
+<template>
+	<set name="uname"><star index="2"/></set> es un nombre bonito.
+</template>
+</category>
+
+<category>
+<pattern>Hola</pattern>
+<template>Hola de nuevo, que tal=</template>
+</category>
+
+<category>
+<pattern>Cual es mi nombre</pattern>
+<template>Tu nombre es <get name="uname"/></template>
+</category>
+
+</aiml>

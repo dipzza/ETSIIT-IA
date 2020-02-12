@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<!-- 1 -->
+<category>
+<pattern><set>hablamealt</set> ^ <set>desobre</set> ti ^</pattern>
+<template>He estudiado Ingenieria Informatica en la UGR, uso diariamente GNU/Linux por lo que tengo experiencia con estos sistemas y hablo Ingles avanzado (C1)</template>
+</category>
+
+<category>
+<pattern><set>desobre</set> ti ^ <set>hablamealt</set> ^</pattern>
+<template><srai>HABLAME UN POCO DE TI</srai></template>
+</category>
+
+<!-- 2 -->
+<category>
+<pattern><set>cualesalt</set> * <set>defectoalt</set> ^</pattern>
+<template>Me cuesta trabajar en equipo sin una buena organización previa</template>
+</category>
+
+<!-- 3 -->
+<category>
+<pattern>Que <set>aspectosalt</set> no te <set>gustanalt</set> <set>dealt</set> un jefe</pattern>
+<template>En mi experiencia profesional he trabajado con diferentes tipos de jefes y creo que me adapto bien a cualquier metodologia de trabajo</template>
+</category>
+
+<!-- 4 -->
+<category>
+<pattern><set>cualessonalt</set> ^ 3 ^ <set>virtudesalt</set></pattern>
+<template>Me gusta aprender cosas nuevas y creo que en esta empresa puedo crecer mucho como profesional. Soy bastante perfeccionista, aunque ya sepa resolver un problema busco la manera de hacerlo mas eficiente. Me gusta trabajar en equipo e intento entender a mis compañeros</template>
+</category>
+
+<!-- 5 -->
+<category>
+<pattern>Te consideras <set>preparadoalt</set> para ^ las funciones de este puesto</pattern>
+<template>Sí, creo que mi conocimiento en ... es clave para el puesto, aunque me encantaría seguir aprendiendo ...</template>
+</category>
+
+<category>
+<pattern>Para ^ las funciones de este puesto te consideras <set>preparadoalt</set></pattern>
+<template><srai>TE CONSIDERAS PREPARADO PARA LAS FUNCIONES DE ESTE PUESTO</srai></template>
+</category>
+
+<!-- 6 -->
+<category>
+<pattern><set>tienesalt</set> experiencia ^ en <set>equiposalt</set> de trabajo</pattern>
+<template>Si, he trabajado en varios equipos de trabajo con buenos resultados</template>
+</category>
+
+<category>
+<pattern>en <set>equiposalt</set> de trabajo <set>tienesalt</set> experiencia ^</pattern>
+<template><srai>TIENES EXPERIENCIA EN EQUIPOS DE TRABAJO</srai></template>
+</category>
+
+<!-- 7 -->
+<category>
+<pattern><set>realizaralt</set> <set>trabajoalt</set> que no fuera con tu especialidad</pattern>
+<template>Siempre que fuera dentro del ámbito de la informática me gustaría aprender otras especialidades</template>
+</category>
+
+<!-- 8 -->
+<category>
+<pattern>Te <set>desplazariasalt</set> de manera ocasional a otros lugares</pattern>
+<template>Si, sin problema</template>
+</category>
+
+<category>
+<pattern>De manera ocasional te <set>desplazariasalt</set> a otros lugares</pattern>
+<template><srai>Te desplazarias de manera ocasional a otros lugares</srai></template>
+</category>
+
+<!-- 9 -->
+<category>
+	<pattern>Te <set>considerasalt</set> una persona creativa</pattern>
+	<template>Creo que desde pequeño he sido creativo al resolver problemas</template>
+</category>
+
+<category>
+	<pattern>Crees que eres ^ creativo</pattern>
+	<template><srai>Te <set>consideras</set> una persona creativa</srai></template>
+</category>
+
+<!-- 10 -->
+<category>
+	<pattern>Que <set>expectativaalt</set> tienes <set>dealt</set> este trabajo</pattern>
+	<template>Considero que el puesto me permitirá crecer y aprender mucho</template>
+</category>
+
+<category>
+	<pattern><set>dealt</set> este trabajo que <set>expectativaalt</set> tienes</pattern>
+	<template><srai>Que expectativas tienes de este trabajo</srai></template>
+</category>
+
+<!-- 11 -->
+<category>
+	<pattern>Que trabajos has tenido <set>dealt</set> esta <set>tematicaalt</set></pattern>
+<template>Ninguno</template>
+</category>
+
+<category>
+	<pattern><set>dealt</set> esta <set>tematicaalt</set> que trabajos has tenido</pattern>
+	<template><srai>Que trabajos has tenido en esta <set>tematicaalt</set></srai></template>
+</category>
+
+<category>
+	<pattern>Que trabajos <set>dealt</set> esta <set>tematicaalt</set> has tenido</pattern>
+	<template><srai>Que trabajos has tenido en esta <set>tematicaalt</set></srai></template>
+</category>
+
+<!-- 12 -->
+<category>
+	<pattern><set>normalmentealt</set> te llevas el trabajo a casa</pattern>
+	<template>No, el trabajo lo hago en horario laboral</template>
+</category>
+
+<category>
+	<pattern>te llevas <set>normalmentealt</set> el trabajo a casa</pattern>
+	<template><srai>normalmente te llevas el trabajo a casa</srai></template>
+</category>
+
+<!-- 13 -->
+<category>
+	<pattern><set>cualessonalt</set> tus aspiraciones salariales ^</pattern>
+	<template>Para aceptar este puesto de trabajo aspiro a un sueldo de 24k al año</template>
+</category>
+
+<category>
+	<pattern>tus aspiraciones salariales cuales son</pattern>
+	<template><srai>cuales son tus aspiraciones salariales</srai></template>
+</category>
+
+<!-- 14 -->
+<category>
+<pattern>Donde te ves * cinco años</pattern>
+<template>Trabajando en esta empresa en un puesto superior</template>
+</category>
+
+<category>
+	<pattern>* cinco años donde te ves</pattern>
+	<template><srai>donde te ves dentro de cinco años</srai></template>
+</category>
+
+<!-- 15 -->
+<category>
+<pattern>No <set>tienesalt</set> experiencia para el puesto a <set>desempenaralt</set></pattern>
+<template>No tengo experiencia pero mis habilidades son perfectas para el trabajo</template>
+</category>
+
+<category>
+	<pattern>para <set>puestoalt</set> a <set>desempenaralt</set> no <set>tienesalt</set> experiencia</pattern>
+	<template><srai>no tienes experiencia para el puesto a desempenar</srai></template>
+</category>
+
+<!-- 16 -->
+<category>
+	<pattern>Que sabes * <set>empresaalt</set> * puesto de trabajo</pattern>
+	<template>Hay un buen ambiente y es un puesto interesante</template>
+</category>
+
+<category>
+	<pattern>Que sabes * puesto de trabajo * <set>empresaalt</set></pattern>
+	<template><srai>que sabes de la empresa y el puesto de trabajo</srai></template>
+</category>
+
+<!-- 17 -->
+<category>
+	<pattern>Que haces cuando <set>considerasalt</set> que * jefe no tiene ^ razon</pattern>
+<template>Si se me ocurre una mejor solucion puedo sugerirlo y el decidira lo mejor</template>
+</category>
+
+<category>
+	<pattern>cuando <set>considerasalt</set> que * jefe no tiene ^ razon que haces</pattern>
+	<template><srai>que haces cuando consideras que tu jefe no tiene la razon</srai></template>
+</category>
+	
+<!-- 18 -->
+<category>
+	<pattern>Por que ^ <set>escogeralt</set> ^</pattern>
+<template>La oferta de trabajo se ajusta mucho a mi perfil</template>
+</category>
+
+</aiml>
